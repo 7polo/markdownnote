@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="css/editormd.css"/>
+</head>
+<body>
+<div id="test-editormd">
+<textarea style="display:none;">
+### 简介
++ 这是一款基于 qt 开发的markdown笔记工具
++ 感谢开源技术的支持， 它将全部开源
++ 欢迎大家的改进
+---
+### 主要功能
++ 多级目录结构
++ 实时笔记列表
++ 实时预览切换
++ 支持顺序图
++ 阅读模式
++ 支持语法高亮
++ 支持主题切换
+        + 编辑器主题
+        + 预览主题
++ 支持本地保存
+
+---
+
+### 演示
+```python
+print "这是一款markdown笔记工具"
+```
+
+```seq
+a->b:call
+b->a:callback
+```
+
+</textarea>
+</div>
+<div id="toc" style=""></div>
+<input type="button" name="点击" id="btn"/>
+<script src="js/jquery.min.js"></script>
+<script src="js/editormd.js"></script>
+<script src="api.js"></script>
+<script src="qwebchannel.js"></script>
+<script>
+
+window.onload = function() {
+    new QWebChannel(qt.webChannelTransport, function(channel) {
+    // make dialog object accessible globally
+    var connector = channel.objects.connector;
+
+    //当信息变化时将内容发至qt
+    $(".editormd-markdown-textarea").bind('DOMNodeInserted', function(e) {
+
+        connector.slot_getToc($("#toc").html());
+    });
+
+    //载入markdown文本
+    connector.sendMarkdownContent.connect(function(markdown){
+        setMarkdown(markdown);
+        connector.slot_getToc($("#toc").html());
+
+    });
+    //设置实时预览
+    connector.sendLivePreview.connect(function(flag){
+        if (flag ==true)
+            openLiveWatch();
+        else
+            closeLiveWatch();
+    });
+    //更改编辑器主题
+    connector.sendChangeEditorTheme.connect(function(theme) {
+        setEditorTheme(theme);
+    });
+
+    //更改预览主题
+    connector.sendChangePreviewTheme.connect(function(theme) {
+        setPreviewTheme(theme);
+    });
+
+
+    //打开预览
+    connector.sendPreview.connect(function(flag){
+        if (flag ==true)
+            openPreview();
+        else
+            closePreview();
+    });
+
+    //连接
+
+     //把一些初始信息发送到qt
+     connector.slot_getToc($("#toc").html());
+     connector.slot_getEidtorThemes(getEditorThemes().join(","));
+     connector.slot_getPreviewThemes(getPreviewThemes().join(","));
+   });
+}
+</script>
+</body>
+</html>
