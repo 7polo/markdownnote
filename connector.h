@@ -16,16 +16,19 @@ private:
 
 signals:
     //js
-    void sendMarkdownContent(QString markdown);
+    void sendMarkdownContent(QString);
     void sendLivePreview(bool);
     void sendPreview(bool);
     void sendChangeEditorTheme(QString);
     void sendChangePreviewTheme(QString);
-    void signal_getMarkdown();
+    void signal_saveMarkdown();
+
+    //ui
+    void signalEditorSave(QString);
 
 public slots:
     void slot_getToc(QString toc);
-    void slot_getMarkdown(QString markdownText);
+    void slotSaveMarkdown(QString markdown);
 };
 
 #endif // CONNECTOR_H

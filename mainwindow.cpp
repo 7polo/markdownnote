@@ -25,6 +25,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->dirTreeView,SIGNAL(signal_selectedDir(QString)),ui->fileTreeView,SLOT(slot_loadDir(QString)));
     connect(ui->fileTreeView,SIGNAL(signal_filePath(QString)),ui->editorView,SLOT(slot_loadMarkdonwText(QString)));
+
+    connect(connector,SIGNAL(signalEditorSave(QString)),ui->editorView,SLOT(slot_saveToFile(QString)));
     setRootPath(); //载入根目录
 
     ui->editorView->link(connector);
@@ -76,7 +78,16 @@ void MainWindow::setRootPath(){
     ui->dirTreeView->setRootPath(path);
 }
 
+//ctrl+s
+void MainWindow::keyPressEvent(QKeyEvent *event)
+{
 
+    if ((event->modifiers() == Qt::ControlModifier) && (event->key() == Qt::Key_S))
+    {
+        //发送信号给connector->到js
+        emit connector->signal_saveMarkdown();
+    }
+}
 
 void MainWindow::on_dirTreeView_customContextMenuRequested(const QPoint &pos)
 {

@@ -19,11 +19,13 @@ public:
     void link(Connector *connector);
 private:
     Connector* connector;
+    QString curFilePath;
 signals:
 
 
 public slots:
     void slot_loadMarkdonwText(QString markdownText);
+    void slot_saveToFile(QString markdown);
 
 };
 

@@ -14,8 +14,9 @@ void Connector::slot_getToc(QString toc){
     }
 }
 
-void Connector::slot_getMarkdown(QString markdownText){
-
+//发送信号signal_saveMarkdown,会回调这个函数
+void Connector::slotSaveMarkdown(QString markdown){
+       emit signalEditorSave(markdown);
 }
 
 void Connector::setTocView(QTextBrowser *view){

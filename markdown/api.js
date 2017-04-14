@@ -64,9 +64,6 @@ function getTags() {
         testEditor.previewed();
     }
 
-    function getMarkdown() {
-         return testEditor.getValue();
-     }
 
      function setMarkdown(mdText){
          testEditor.setMarkdown(mdText);

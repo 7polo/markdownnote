@@ -3,7 +3,7 @@
 
 #include <QMainWindow>
 #include <connector.h>
-
+#include <QKeyEvent>
 namespace Ui {
 class MainWindow;
 }
@@ -24,6 +24,9 @@ private:
     Ui::MainWindow *ui;
     void setRootPath();
     Connector* connector;
+
+protected:
+    void keyPressEvent(QKeyEvent *event);
 public slots:
     //窗口处理
     void slot_moveWindow(QPoint &); //移动窗口
@@ -35,6 +38,7 @@ public slots:
 private slots:
     void on_dirTreeView_customContextMenuRequested(const QPoint &pos);
     void on_fileTreeView_customContextMenuRequested(const QPoint &pos);
+signals:
 };
 
 #endif // MAINWINDOW_H

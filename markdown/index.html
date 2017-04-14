@@ -58,6 +58,12 @@ window.onload = function() {
         connector.slot_getToc($("#toc").html());
     });
 
+    //保存markdown
+    connector.signal_saveMarkdown.connect(function(){
+        connector.slotSaveMarkdown(testEditor.getValue());
+    });
+
+
     //载入markdown文本
     connector.sendMarkdownContent.connect(function(markdown){
         setMarkdown(markdown);
