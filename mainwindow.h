@@ -38,6 +38,7 @@ public slots:
 private slots:
     void on_dirTreeView_customContextMenuRequested(const QPoint &pos);
     void on_fileTreeView_customContextMenuRequested(const QPoint &pos);
+    void slot_modeChange(bool flag);
 signals:
 };
 

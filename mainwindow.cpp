@@ -23,6 +23,10 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->titlebar,SIGNAL(signal_closeWindow()), this,SLOT(slot_close()));
     connect(ui->titlebar, SIGNAL(signal_doubleClick()),this,SLOT(slot_fullScreen()));
 
+    //模式信号
+    connect(ui->titlebar, SIGNAL(signal_modeChange(bool)),this,SLOT(slot_modeChange(bool)));
+
+
     connect(ui->dirTreeView,SIGNAL(signal_selectedDir(QString)),ui->fileTreeView,SLOT(slot_loadDir(QString)));
     connect(ui->fileTreeView,SIGNAL(signal_filePath(QString)),ui->editorView,SLOT(slot_loadMarkdonwText(QString)));
 
@@ -89,6 +93,12 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
     }
 }
 
+void MainWindow::slot_modeChange(bool flag){
+    qDebug()<<"编辑模式改变"<<flag<<endl;
+    emit connector->sendPreview(flag);
+}
+
+//菜单
 void MainWindow::on_dirTreeView_customContextMenuRequested(const QPoint &pos)
 {
     ui->dirTreeView->showPopMenu();

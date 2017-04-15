@@ -11,6 +11,7 @@ Titlebar::Titlebar(QWidget *parent) :
     connect(ui->minLabel,SIGNAL(clicked()), this, SLOT(solt_labelClick()));
     connect(ui->closeLabel,SIGNAL(clicked()), this, SLOT(solt_labelClick()));
     connect(ui->settingLabel,SIGNAL(clicked()), this, SLOT(solt_labelClick()));
+    connect(ui->modeBtn, SIGNAL(toggled(bool)),this, SLOT(modeChange(bool)));
 }
 
 Titlebar::~Titlebar(){
@@ -75,4 +76,9 @@ void Titlebar::slot_loadUser(User &user){
     if (!user.getIconPath().isEmpty()){
         ui->iconLabel->setPixmap(QPixmap(user.getIconPath()));
     }
+}
+
+void Titlebar::modeChange(bool flag){
+    qDebug()<<"模式切换按钮点击"<<flag<<endl;
+    emit signal_modeChange(flag);
 }

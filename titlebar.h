@@ -33,6 +33,7 @@ private:
 private slots:
     void solt_labelClick();
     void slot_loadUser(User &);
+    void modeChange(bool);
 
 signals:
     void signal_move(QPoint &);
@@ -41,6 +42,8 @@ signals:
     void signal_minWindow();
     void signal_settingDialog();//发送信号,显示设置面板
     void signal_closeWindow();
+
+    void signal_modeChange(bool); //模式改变
 };
 
 #endif // TITLEBAR_H

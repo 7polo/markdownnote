@@ -21,8 +21,8 @@
 + 阅读模式
 + 支持语法高亮
 + 支持主题切换
-        + 编辑器主题
-        + 预览主题
+   + 编辑器主题
+   + 预览主题
 + 支持本地保存
 
 ---
@@ -72,7 +72,7 @@ window.onload = function() {
     });
     //设置实时预览
     connector.sendLivePreview.connect(function(flag){
-        if (flag ==true)
+        if (flag == true)
             openLiveWatch();
         else
             closeLiveWatch();
@@ -90,10 +90,13 @@ window.onload = function() {
 
     //打开预览
     connector.sendPreview.connect(function(flag){
-        if (flag ==true)
-            openPreview();
-        else
-            closePreview();
+        if (!flag){
+            testEditor.previewing();
+            $("#test-editormd > a").hide();
+        }
+        else{
+            testEditor.previewed();
+        }
     });
 
     //连接

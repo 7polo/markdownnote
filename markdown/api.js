@@ -55,14 +55,6 @@ function getTags() {
         testEditor.unwatch();
     }
 
-    //只显示预览
-    function openPreview() {
-        testEditor.previewing();
-        $("#test-editormd > a").hide();
-    }
-    function closePreview() {
-        testEditor.previewed();
-    }
 
 
      function setMarkdown(mdText){

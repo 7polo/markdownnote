@@ -90,6 +90,49 @@
      </property>
     </widget>
    </item>
+   <item>
+    <widget class="QPushButton" name="modeBtn">
+     <property name="minimumSize">
+      <size>
+       <width>24</width>
+       <height>24</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>24</width>
+       <height>24</height>
+      </size>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="res.qrc">
+       <normaloff>:/icon/read.svg</normaloff>
+       <normalon>:/icon/editor.svg</normalon>
+       <disabledoff>:/icon/read.svg</disabledoff>:/icon/read.svg</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>18</width>
+       <height>18</height>
+      </size>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+     <property name="checked">
+      <bool>true</bool>
+     </property>
+     <property name="autoRepeat">
+      <bool>true</bool>
+     </property>
+     <property name="flat">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
    <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
     <widget class="NLabel" name="settingLabel">
      <property name="minimumSize">
