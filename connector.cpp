@@ -5,20 +5,14 @@ Connector::Connector(QObject *parent) : QObject(parent)
 
 }
 
-void Connector::slot_getToc(QString toc){
-    qDebug()<<"获取大纲"<<toc<<endl;
-    if (tocView != NULL){
-        tocView->setHtml(toc);
-    }else{
-        qDebug()<<"?"<<endl;
-    }
+void Connector::slot_edited(){
+//    qDebug()<<"键入编辑"<<endl;
+    emit signal_getEditeFlag();
 }
 
-//发送信号signal_saveMarkdown,会回调这个函数
-void Connector::slotSaveMarkdown(QString markdown){
-       emit signalEditorSave(markdown);
+void Connector::slot_getMarkdown(QString markdown){
+//    qDebug()<<"收到来自js的回调"<<endl;
+    emit signal_getMarkdown(markdown);
 }
 
-void Connector::setTocView(QTextBrowser *view){
-    this->tocView = view;
-}
+

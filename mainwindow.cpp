@@ -13,9 +13,6 @@ MainWindow::MainWindow(QWidget *parent) :
     this->setMouseTracking(true);
     ui->setupUi(this);
 
-    connector = new Connector();
-    connector->setTocView(ui->tocView);
-
     //窗口信号槽
     connect(ui->titlebar,SIGNAL(signal_move(QPoint&)),this, SLOT(slot_moveWindow(QPoint&)));
     connect(ui->titlebar, SIGNAL(signal_maxWindow()),this,SLOT(slot_maxWindow()));
@@ -23,17 +20,20 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->titlebar,SIGNAL(signal_closeWindow()), this,SLOT(slot_close()));
     connect(ui->titlebar, SIGNAL(signal_doubleClick()),this,SLOT(slot_fullScreen()));
 
-    //模式信号
-    connect(ui->titlebar, SIGNAL(signal_modeChange(bool)),this,SLOT(slot_modeChange(bool)));
+    connect(this,SIGNAL(signal_CtrlandS()),ui->editorView,SLOT(slot_CtrlandS()));
+
+    //切换目录,显示目录下的文件
+    connect(ui->dirTreeView, SIGNAL(signal_selectedDir(QString)),ui->fileTreeView,SLOT(slot_loadDir(QString)));
+
+    //选择文件,载入到编辑器
+    connect(ui->fileTreeView, SIGNAL(signal_filePath(QString)),ui->editorView,SLOT(slot_loadMarkdown(QString)));
+
+    //改变模式
+    connect(ui->titlebar, SIGNAL(signal_modeChange(bool)),ui->editorView,SLOT(slot_changeMode(bool)));
 
 
-    connect(ui->dirTreeView,SIGNAL(signal_selectedDir(QString)),ui->fileTreeView,SLOT(slot_loadDir(QString)));
-    connect(ui->fileTreeView,SIGNAL(signal_filePath(QString)),ui->editorView,SLOT(slot_loadMarkdonwText(QString)));
-
-    connect(connector,SIGNAL(signalEditorSave(QString)),ui->editorView,SLOT(slot_saveToFile(QString)));
     setRootPath(); //载入根目录
 
-    ui->editorView->link(connector);
 }
 
 
@@ -88,15 +88,10 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 
     if ((event->modifiers() == Qt::ControlModifier) && (event->key() == Qt::Key_S))
     {
-        //发送信号给connector->到js
-        emit connector->signal_saveMarkdown();
+         emit signal_CtrlandS();
     }
 }
 
-void MainWindow::slot_modeChange(bool flag){
-    qDebug()<<"编辑模式改变"<<flag<<endl;
-    emit connector->sendPreview(flag);
-}
 
 //菜单
 void MainWindow::on_dirTreeView_customContextMenuRequested(const QPoint &pos)

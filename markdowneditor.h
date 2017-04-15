@@ -16,16 +16,27 @@ class MarkdownEditor : public QWebEngineView
     Q_OBJECT
 public:
     explicit MarkdownEditor(QWidget *parent = 0);
-    void link(Connector *connector);
+
 private:
     Connector* connector;
-    QString curFilePath;
+    QString curFilePath; //当前文件路径
+    QString nextFilePath; //下一个想要打开的文件路径
+    bool isSaved = true;
+    bool isEmpty = false;
 signals:
 
 
 public slots:
-    void slot_loadMarkdonwText(QString markdownText);
-    void slot_saveToFile(QString markdown);
+    //ctrl+s
+    void slot_CtrlandS();
+
+    //与connector相关
+    void slot_changeMode(bool); //改变模式
+    void slot_livePrivew(bool flag);//实时预览
+    void slot_loadMarkdown(QString filePath); //根据路径载入markdown内容
+    void slot_edited(); //编辑器被编辑
+    void slot_saveMarkdown(QString markdown); //保存文件
+
 
 };
 

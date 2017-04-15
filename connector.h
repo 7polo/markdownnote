@@ -9,26 +9,28 @@ class Connector : public QObject
     Q_OBJECT
 public:
     explicit Connector(QObject *parent = 0);
-    void setTocView(QTextBrowser *view);
-
-private:
-    QTextBrowser * tocView = NULL;
 
 signals:
+    //ui-signal
+    void signal_getMarkdown(QString markdown); //被转发信号
+    void signal_getEditeFlag(); //被编辑信号
+
     //js
-    void sendMarkdownContent(QString);
+    void sendChangeMode(bool);
     void sendLivePreview(bool);
-    void sendPreview(bool);
+    void sendLoadMarkdown(QString markdown);
+    void sendGetMarkdown();
+
+    //js
+
     void sendChangeEditorTheme(QString);
     void sendChangePreviewTheme(QString);
-    void signal_saveMarkdown();
-
-    //ui
-    void signalEditorSave(QString);
 
 public slots:
-    void slot_getToc(QString toc);
-    void slotSaveMarkdown(QString markdown);
+
+    void slot_getMarkdown(QString markdown);//转发 signal_getMarkdown 信号至编辑器
+    void slot_edited(); //被编辑了
+
 };
 
 #endif // CONNECTOR_H

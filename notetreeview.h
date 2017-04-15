@@ -6,6 +6,7 @@
 #include <QMenu>
 #include <QHeaderView>
 #include <QMessageBox>
+#include <QInputDialog>
 #include <niconprovider.h>
 
 class NoteTreeView : public QTreeView
@@ -23,9 +24,12 @@ private:
     QModelIndex index;
 signals:
     void signal_filePath(QString);
+    void signal_setToc(QString);
+    void signal_saveMarkdown();
 
 public slots:
     void slot_loadDir(QString path);
+    void slot_createFile();
     void slot_rename();
     void slot_deleteFile();
     void slot_sendselectedPath(QModelIndex index);

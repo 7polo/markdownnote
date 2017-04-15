@@ -36,27 +36,7 @@
         return editormd.previewThemes;
     }
 
-    function  setEditorTheme(theme){
-        testEditor.setEditorTheme(theme);
-    }
-    function setPreviewTheme(theme){
-        testEditor.setPreviewTheme(theme);
-    }
-
-function getTags() {
-   return testEditor.getPreviewedHTML();
-}
-
-    //打开实时预览
-    function openLiveWatch() {
-        testEditor.watch();
-    }
-    function closeLiveWatch() {
-        testEditor.unwatch();
-    }
 
 
 
-     function setMarkdown(mdText){
-         testEditor.setMarkdown(mdText);
-     }
+

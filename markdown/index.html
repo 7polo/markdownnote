@@ -46,7 +46,8 @@ b->a:callback
 <script src="api.js"></script>
 <script src="qwebchannel.js"></script>
 <script>
-
+var isLoad = true;
+var page = 0; //记录当前是第几篇
 window.onload = function() {
     new QWebChannel(qt.webChannelTransport, function(channel) {
     // make dialog object accessible globally
@@ -54,42 +55,23 @@ window.onload = function() {
 
     //当信息变化时将内容发至qt
     $(".editormd-markdown-textarea").bind('DOMNodeInserted', function(e) {
-
-        connector.slot_getToc($("#toc").html());
-    });
-
-    //保存markdown
-    connector.signal_saveMarkdown.connect(function(){
-        connector.slotSaveMarkdown(testEditor.getValue());
-    });
-
-
-    //载入markdown文本
-    connector.sendMarkdownContent.connect(function(markdown){
-        setMarkdown(markdown);
-        connector.slot_getToc($("#toc").html());
-
-    });
-    //设置实时预览
-    connector.sendLivePreview.connect(function(flag){
-        if (flag == true)
-            openLiveWatch();
+        if (page == 0)
+            return;
+        //说明内容的变化是键入引起的,而非载入
+        if (isLoad)
+            isLoad = false;
         else
-            closeLiveWatch();
-    });
-    //更改编辑器主题
-    connector.sendChangeEditorTheme.connect(function(theme) {
-        setEditorTheme(theme);
+            connector.slot_edited();
     });
 
-    //更改预览主题
-    connector.sendChangePreviewTheme.connect(function(theme) {
-        setPreviewTheme(theme);
+    //qt 段获取markdown内容
+    connector.sendGetMarkdown.connect(function(){
+        connector.slot_getMarkdown(testEditor.getValue());
     });
 
 
-    //打开预览
-    connector.sendPreview.connect(function(flag){
+    //打开模式 +
+    connector.sendChangeMode.connect(function(flag){
         if (!flag){
             testEditor.previewing();
             $("#test-editormd > a").hide();
@@ -99,12 +81,37 @@ window.onload = function() {
         }
     });
 
+    //载入markdown文本 +
+    connector.sendLoadMarkdown.connect(function(markdown){
+        page ++;
+        isLoad = true;
+        testEditor.setMarkdown(markdown);
+    });
+
+    //实时预览切换 +
+    connector.sendLivePreview.connect(function(flag){
+        flag?testEditor.watch():testEditor.unwatch();
+    });
+
+    //更改编辑器主题
+    connector.sendChangeEditorTheme.connect(function(theme) {
+
+        testEditor.setEditorTheme(theme);
+    });
+
+    //更改预览主题
+    connector.sendChangePreviewTheme.connect(function(theme) {
+        testEditor.setPreviewTheme(theme);
+    });
+
+
+
     //连接
 
      //把一些初始信息发送到qt
-     connector.slot_getToc($("#toc").html());
-     connector.slot_getEidtorThemes(getEditorThemes().join(","));
-     connector.slot_getPreviewThemes(getPreviewThemes().join(","));
+//     connector.slot_getToc($("#toc").html());
+  //   connector.slot_getEidtorThemes(getEditorThemes().join(","));
+    // connector.slot_getPreviewThemes(getPreviewThemes().join(","));
    });
 }
 </script>
