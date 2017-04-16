@@ -44,13 +44,13 @@ void NDirTreeview::slot_selectDir(QModelIndex selectIndex){
 
     if (index != selectIndex){
          index = selectIndex;
+         this->expand(index);
          QString path = dirModel->filePath(proxyModel->mapToSource(selectIndex));
          qDebug()<<"发送"<<path<<endl;
          emit signal_selectedDir(path);
     }
 }
 
-//
 
 void NDirTreeview::creatDir(bool flag){
 
@@ -149,9 +149,6 @@ void NDirTreeview::slot_rmDir()
        ok = dirModel->rmdir(index);
     else{
        ok = dirModel->remove(index);
-       //todo 发出信号,将编辑器中的内容清空
-//       if (ok)
-//           emit signal_delFile();
     }
 
     if (!ok)

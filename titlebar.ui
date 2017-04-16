@@ -21,7 +21,7 @@
     <number>0</number>
    </property>
    <property name="rightMargin">
-    <number>35</number>
+    <number>20</number>
    </property>
    <property name="bottomMargin">
     <number>0</number>
@@ -233,8 +233,8 @@ QLabel:!hover{
      </property>
      <property name="maximumSize">
       <size>
-       <width>18</width>
-       <height>18</height>
+       <width>16</width>
+       <height>16</height>
       </size>
      </property>
      <property name="toolTip">
