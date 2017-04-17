@@ -26,9 +26,13 @@ private slots:
     void slot_getPreviewThemes(QString);
     void slot_previewThemeChange(QString);
 
+    void slot_livePreview(bool);
+
 signals:
     void signal_editorThemeChange(QString);
     void signal_previewThemeChange(QString);
+
+    void signal_livePreview(bool);
 };
 
 #endif // SETTINGDIALOG_H

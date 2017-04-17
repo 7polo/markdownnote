@@ -124,5 +124,7 @@ void MarkdownEditor::slot_previewThemeChange(QString theme){
 }
 
 
-
+void MarkdownEditor::slot_changeLivePreview(bool flag){
+    emit connector->sendLivePreview(flag);
+}
 

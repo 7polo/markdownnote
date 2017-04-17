@@ -10,6 +10,7 @@ SettingDialog::SettingDialog(QWidget *parent) :
 
     connect(ui->editorThemes,SIGNAL(currentIndexChanged(QString)),this, SLOT(slot_editorThemeChange(QString)));
     connect(ui->previewThemes,SIGNAL(currentIndexChanged(QString)),this, SLOT(slot_previewThemeChange(QString)));
+    connect(ui->livePreview,SIGNAL(clicked(bool)),this,SLOT(slot_livePreview(bool)));
 }
 
 SettingDialog::~SettingDialog()
@@ -40,4 +41,8 @@ void SettingDialog::slot_getPreviewThemes(QString themes){
 
 void SettingDialog::slot_previewThemeChange(QString theme){
     emit signal_previewThemeChange(theme);
+}
+
+void SettingDialog::slot_livePreview(bool flag){
+    emit signal_livePreview(flag);
 }

@@ -40,6 +40,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->editorView,SIGNAL(signal_previewThemes(QString)),this->settingDialog,SLOT(slot_getPreviewThemes(QString)));
     connect(this->settingDialog, SIGNAL(signal_previewThemeChange(QString)), ui->editorView, SLOT(slot_previewThemeChange(QString)));
+
+    connect(this->settingDialog,SIGNAL(signal_livePreview(bool)),ui->editorView,SLOT(slot_livePrivew(bool)));
     setRootPath(); //载入根目录
 }
 

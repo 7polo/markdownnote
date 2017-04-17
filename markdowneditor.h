@@ -44,6 +44,8 @@ public slots:
     void slot_PreviewThemes(QString);
     void slot_previewThemeChange(QString);
 
+    void slot_changeLivePreview(bool);
+
 };
 
 #endif // MARKDOWNEDITOR_H
