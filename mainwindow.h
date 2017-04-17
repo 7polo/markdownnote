@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 #include <QKeyEvent>
+#include <settingdialog.h>
+
 namespace Ui {
 class MainWindow;
 }
@@ -21,6 +23,7 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    SettingDialog *settingDialog = NULL;
     void setRootPath();
 
 
@@ -33,6 +36,9 @@ public slots:
     void slot_minWindow();
     void slot_close();
     void slot_fullScreen();
+
+    //
+    void slot_settingDialog();
 
 private slots:
     void on_dirTreeView_customContextMenuRequested(const QPoint &pos);

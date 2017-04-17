@@ -12,6 +12,9 @@ MarkdownEditor::MarkdownEditor(QWidget *parent) : QWebEngineView(parent)
 
     connect(connector,SIGNAL(signal_getEditeFlag()),this,SLOT(slot_edited()));
     connect(connector,SIGNAL(signal_getMarkdown(QString)),this,SLOT(slot_saveMarkdown(QString)));
+    connect(connector,SIGNAL(signal_getEditorThemes(QString)),this,SLOT(slot_EditorThemes(QString)));
+    connect(connector,SIGNAL(signal_getPreviewThemes(QString)),this,SLOT(slot_PreviewThemes(QString)));
+
 }
 
 //接受父窗口的ctrl+s键盘事件信号
@@ -100,6 +103,24 @@ void MarkdownEditor::slot_saveMarkdown(QString markdown){
     }else{
         qDebug()<<"文件名不能为空"<<endl;
     }
+}
+
+//发送信号给更外层的ui
+void MarkdownEditor::slot_EditorThemes(QString themes){
+
+    emit signal_editorThemes(themes);
+}
+void MarkdownEditor::slot_edtiorThemeChange(QString theme){
+
+    emit connector->sendChangeEditorTheme(theme);
+}
+
+void MarkdownEditor::slot_PreviewThemes(QString themes){
+    emit signal_previewThemes(themes);
+}
+
+void MarkdownEditor::slot_previewThemeChange(QString theme){
+    emit connector->sendChangePreviewTheme(theme);
 }
 
 

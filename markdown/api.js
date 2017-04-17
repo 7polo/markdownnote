@@ -9,7 +9,7 @@
         testEditor = editormd("test-editormd", {
             width: "100%",
             height: 768,
-            previewTheme: (localStorage.previewTheme) ? localStorage.previewTheme : "monokai",
+            previewTheme: (localStorage.previewTheme) ? localStorage.previewTheme : "default",
             editorTheme: (localStorage.editorTheme) ? localStorage.editorTheme : "default",
             path: 'lib/',
             sequenceDiagram : true,  //支持时序图

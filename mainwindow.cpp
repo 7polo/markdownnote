@@ -8,7 +8,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow){
 
-
+    settingDialog = new SettingDialog(this);
     this->setWindowFlags(Qt::FramelessWindowHint);
     this->setMouseTracking(true);
     ui->setupUi(this);
@@ -32,8 +32,15 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->titlebar, SIGNAL(signal_modeChange(bool)),ui->editorView,SLOT(slot_changeMode(bool)));
 
 
-    setRootPath(); //载入根目录
+    //设置面板
+    connect(ui->titlebar,SIGNAL(signal_settingDialog()), this, SLOT(slot_settingDialog()));
 
+    connect(ui->editorView,SIGNAL(signal_editorThemes(QString)),this->settingDialog,SLOT(slot_getEditorThemes(QString)));
+    connect(this->settingDialog, SIGNAL(signal_editorThemeChange(QString)), ui->editorView, SLOT(slot_edtiorThemeChange(QString)));
+
+    connect(ui->editorView,SIGNAL(signal_previewThemes(QString)),this->settingDialog,SLOT(slot_getPreviewThemes(QString)));
+    connect(this->settingDialog, SIGNAL(signal_previewThemeChange(QString)), ui->editorView, SLOT(slot_previewThemeChange(QString)));
+    setRootPath(); //载入根目录
 }
 
 
@@ -99,7 +106,13 @@ void MainWindow::on_dirTreeView_customContextMenuRequested(const QPoint &pos)
     ui->dirTreeView->showPopMenu();
 }
 
-void MainWindow::on_fileTreeView_customContextMenuRequested(const QPoint &pos)
-{
+void MainWindow::on_fileTreeView_customContextMenuRequested(const QPoint &pos){
+
     ui->fileTreeView->showPopmenu();
+}
+
+//设置面板
+void MainWindow::slot_settingDialog(){
+
+   settingDialog->show();
 }

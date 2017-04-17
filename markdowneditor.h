@@ -24,7 +24,8 @@ private:
     bool isSaved = true;
     bool isEmpty = false;
 signals:
-
+    void signal_editorThemes(QString);
+    void signal_previewThemes(QString);
 
 public slots:
     //ctrl+s
@@ -37,6 +38,11 @@ public slots:
     void slot_edited(); //编辑器被编辑
     void slot_saveMarkdown(QString markdown); //保存文件
 
+    void slot_EditorThemes(QString themes);
+    void slot_edtiorThemeChange(QString);
+
+    void slot_PreviewThemes(QString);
+    void slot_previewThemeChange(QString);
 
 };
 

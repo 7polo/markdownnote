@@ -15,4 +15,15 @@ void Connector::slot_getMarkdown(QString markdown){
     emit signal_getMarkdown(markdown);
 }
 
+void Connector::slot_getEditorThemes(QString themes){
+    qDebug()<<themes<<endl;
+    emit signal_getEditorThemes(themes);
+}
+
+void Connector::slot_getPreviewThemes(QString themes){
+    qDebug()<<themes<<endl;
+    emit signal_getPreviewThemes(themes);
+}
+
+
 

@@ -22,7 +22,8 @@ SOURCES += main.cpp\
     ndirfiltermodel.cpp \
     ndirtreeview.cpp \
     notetreeview.cpp \
-    markdowneditor.cpp
+    markdowneditor.cpp \
+    settingdialog.cpp
 
 HEADERS  += mainwindow.h \
     user.h \
@@ -33,10 +34,12 @@ HEADERS  += mainwindow.h \
     ndirfiltermodel.h \
     ndirtreeview.h \
     notetreeview.h \
-    markdowneditor.h
+    markdowneditor.h \
+    settingdialog.h
 
 FORMS    += mainwindow.ui \
-    titlebar.ui
+    titlebar.ui \
+    settingdialog.ui
 
 RESOURCES += \
     res.qrc
