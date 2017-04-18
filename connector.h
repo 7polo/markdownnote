@@ -24,6 +24,7 @@ signals:
     void sendGetMarkdown();
     void sendChangeEditorTheme(QString);
     void sendChangePreviewTheme(QString);
+    void sendInsertMarkdown(QString);
 
 public slots:
 
@@ -31,7 +32,6 @@ public slots:
     void slot_edited(); //被编辑了
     void slot_getEditorThemes(QString);
     void slot_getPreviewThemes(QString);
-
 
 };
 

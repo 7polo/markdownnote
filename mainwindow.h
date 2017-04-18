@@ -45,6 +45,7 @@ private slots:
     void on_fileTreeView_customContextMenuRequested(const QPoint &pos);
 signals:
     void signal_CtrlandS();
+    void signal_CtrlandE();
 };
 
 #endif // MAINWINDOW_H

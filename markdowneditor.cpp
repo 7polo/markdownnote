@@ -1,5 +1,5 @@
 #include "markdowneditor.h"
-
+#include <QDir>
 MarkdownEditor::MarkdownEditor(QWidget *parent) : QWebEngineView(parent)
 {
     this->connector = new Connector();
@@ -86,8 +86,10 @@ void MarkdownEditor::slot_saveMarkdown(QString markdown){
 
 
     if (!curFilePath.isEmpty()){ //当前文件名不为空时
+
         QFile file(curFilePath);
-          if ( file.open(QIODevice::WriteOnly | QIODevice::Text) ) {
+
+        if ( file.open(QIODevice::WriteOnly | QIODevice::Text) ) {
               QTextStream out( &file );
               out<<markdown;
               file.close();
@@ -126,5 +128,25 @@ void MarkdownEditor::slot_previewThemeChange(QString theme){
 
 void MarkdownEditor::slot_changeLivePreview(bool flag){
     emit connector->sendLivePreview(flag);
+}
+
+
+//接口开发完毕，
+void MarkdownEditor::slot_CtrlandE()
+{
+    //TODO 应该将图片复制到当前文件的同目录下的 .imgs 目录中
+    QClipboard *board = QApplication::clipboard();
+    QString imgTag = board->text();
+
+    if (imgTag.isNull() || imgTag.isEmpty())
+        return;
+
+    if (!imgTag.startsWith("file://")){
+        imgTag = "file://"+imgTag;
+    }
+
+    imgTag = "![]("+imgTag+")";
+    emit connector->sendInsertMarkdown(imgTag);
+
 }
 

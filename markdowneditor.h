@@ -3,9 +3,12 @@
 
 #include <QWebEngineView>
 #include <QWebEnginePage>
+#include <QApplication>
 #include <QWebChannel>
+#include <QKeyEvent>
 #include <QIODevice>
 #include <QMessageBox>
+#include <QClipboard>
 #include <QFile>
 #include <QUrl>
 
@@ -30,7 +33,7 @@ signals:
 public slots:
     //ctrl+s
     void slot_CtrlandS();
-
+    void slot_CtrlandE();
     //与connector相关
     void slot_changeMode(bool); //改变模式
     void slot_livePrivew(bool flag);//实时预览

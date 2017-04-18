@@ -20,8 +20,9 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->titlebar,SIGNAL(signal_closeWindow()), this,SLOT(slot_close()));
     connect(ui->titlebar, SIGNAL(signal_doubleClick()),this,SLOT(slot_fullScreen()));
 
+    //键盘事件
     connect(this,SIGNAL(signal_CtrlandS()),ui->editorView,SLOT(slot_CtrlandS()));
-
+    connect(this,SIGNAL(signal_CtrlandE()),ui->editorView,SLOT(slot_CtrlandE()));
     //切换目录,显示目录下的文件
     connect(ui->dirTreeView, SIGNAL(signal_selectedDir(QString)),ui->fileTreeView,SLOT(slot_loadDir(QString)));
 
@@ -43,6 +44,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(this->settingDialog,SIGNAL(signal_livePreview(bool)),ui->editorView,SLOT(slot_livePrivew(bool)));
     setRootPath(); //载入根目录
+
+    ui->editorView->installEventFilter(this);
 }
 
 
@@ -95,10 +98,13 @@ void MainWindow::setRootPath(){
 void MainWindow::keyPressEvent(QKeyEvent *event)
 {
 
-    if ((event->modifiers() == Qt::ControlModifier) && (event->key() == Qt::Key_S))
-    {
+    if ((event->modifiers() == Qt::ControlModifier) && (event->key() == Qt::Key_S)){
          emit signal_CtrlandS();
     }
+
+    else if ((event->modifiers() == Qt::ControlModifier) && (event->key() == Qt::Key_E)){
+        emit signal_CtrlandE();
+   }
 }
 
 
@@ -118,3 +124,4 @@ void MainWindow::slot_settingDialog(){
 
    settingDialog->show();
 }
+

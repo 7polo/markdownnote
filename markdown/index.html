@@ -64,6 +64,19 @@ window.onload = function() {
             connector.slot_edited();
     });
 
+    $(".editormd-markdown-textarea").keydown(function(event) {
+        if(event.ctrlKey == true){
+            if(event.keyCode == 86){
+            event.stopPropagation();
+                alert("你使用了Ctrl+v组合件功能！");
+            }
+         }
+    });
+
+    $(document).keydown(function(event){
+
+    });
+
     //qt 段获取markdown内容
     connector.sendGetMarkdown.connect(function(){
         connector.slot_getMarkdown(testEditor.getValue());
@@ -104,7 +117,10 @@ window.onload = function() {
         testEditor.setPreviewTheme(theme);
     });
 
-
+    //插入图片
+    connector.sendInsertMarkdown.connect(function(insertStr) {
+        testEditor.insertValue(insertStr);
+    });
 
     //连接
 
