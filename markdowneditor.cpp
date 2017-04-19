@@ -24,8 +24,11 @@ void MarkdownEditor::slot_CtrlandS(){
 }
 
 void MarkdownEditor::slot_edited(){
-    isSaved = false;
-    qDebug()<<"编辑器被编辑了"<<endl;
+
+    if (!this->curFilePath.isEmpty()){
+        isSaved = false;
+        qDebug()<<"编辑器被编辑了"<<endl;
+    }
 }
 
 //改变模式
@@ -134,16 +137,36 @@ void MarkdownEditor::slot_changeLivePreview(bool flag){
 //接口开发完毕，
 void MarkdownEditor::slot_CtrlandE()
 {
-    //TODO 应该将图片复制到当前文件的同目录下的 .imgs 目录中
-    QClipboard *board = QApplication::clipboard();
-    QString imgTag = board->text();
 
-    if (imgTag.isNull() || imgTag.isEmpty())
+    if (curFilePath.isEmpty())
         return;
 
-    if (!imgTag.startsWith("file://")){
+
+    QFileInfo infor(this->curFilePath);
+    QDir parentDir(infor.absoluteDir());
+    QDir imgDir(parentDir.absolutePath()+"/.imgs"); //图片路径
+
+    if (!imgDir.exists()){
+       parentDir.mkdir(imgDir.absolutePath());
+    }
+
+    QClipboard *board = QApplication::clipboard();
+    QString pathText = board->text();
+
+    QFileInfo sourceFile(pathText);
+    QString targetFile = imgDir.absoluteFilePath(sourceFile.fileName());
+
+    if (sourceFile.exists()&&sourceFile.isFile()){
+        QFile::copy(sourceFile.absoluteFilePath(),targetFile);
+    }
+
+
+    QString imgTag(targetFile);
+
+    if (!imgTag.isEmpty()&&!imgTag.startsWith("file://")){
         imgTag = "file://"+imgTag;
     }
+
 
     imgTag = "![]("+imgTag+")";
     emit connector->sendInsertMarkdown(imgTag);
