@@ -3192,7 +3192,7 @@
         "Ctrl-5"       : "h5",
         "Ctrl-6"       : "h6",
         "Ctrl-B"       : "bold",  // if this is string ==  editormd.toolbarHandlers.xxxx
-        "Ctrl-D"       : "datetime",
+        "Ctrl-T"       : "datetime",
         
         "Ctrl-Alt-G"   : "goto-line",
         "Ctrl-H"       : "hr",

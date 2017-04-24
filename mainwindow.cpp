@@ -70,11 +70,14 @@ void MainWindow::slot_maxWindow(){
 void MainWindow::slot_minWindow(){
     this->showMinimized();
 }
+
+//改 全屏->最大化
 void MainWindow::slot_fullScreen(){
-    if (this->isFullScreen())
+    qDebug()<<"全屏"<<endl;
+    if (this->isMaximized())
         this->showNormal();
     else
-        this->showFullScreen();
+        this->showMaximized();
 }
 
 //关闭
